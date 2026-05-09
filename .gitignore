@@ -6,6 +6,7 @@ data/SDI_1950_2021.csv
 data/ihme_data/
 data/ne_110m/
 data/iran_shapefile/
+data/who_tb_outcomes.csv
 
 # --- Derived / intermediate model artefacts ---
 code/qci_pca_model.joblib
