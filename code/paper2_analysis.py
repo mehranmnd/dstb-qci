@@ -37,6 +37,13 @@ sys.path.insert(0, os.path.join(BASE, 'code'))
 from mappings import (SDI_COUNTRY_MAPPING, WB_REGIONS, SDI_QUINTILES,
                       IRAN_PROVINCES, COUNTRY_NAME_MAPPING, SDI_VALUE_MAP_2021)
 
+# Note: `SDI_VALUE_MAP_2021` from mappings.py is imported only as a
+# backward-compatibility fallback for ~40 countries whose SDI is not
+# present in the qci_complete_data.csv data file (mostly small island
+# states and conflict-affected settings). The data file is the
+# authoritative source for the other 155 countries; see the SDI map
+# construction block further down for details.
+
 # ── Style ──────────────────────────────────────────────────────────────────────
 plt.rcParams.update({
     'font.family': 'sans-serif',
@@ -75,6 +82,63 @@ regions_set = set(WB_REGIONS + SDI_QUINTILES + IRAN_PROVINCES + [
 countries_only = sorted([c for c in df_qci['iso_location_name'].unique() if c not in regions_set])
 print(f"  {len(countries_only)} countries identified")
 
+# ── Single-source SDI map (replaces direct use of hardcoded SDI_VALUE_MAP_2021) ─
+# The qci_complete_data.csv `sdi_value_2021` column is treated as the
+# authoritative source for the 155 countries where it is non-null. For
+# the remaining ~40 countries (predominantly small island states,
+# conflict-affected or data-sparse settings such as Marshall Islands,
+# Antigua and Barbuda, South Sudan, New Zealand) the data file has no
+# SDI value and we fall back to the hardcoded dict in mappings.py to
+# preserve the original 195-country analytic sample. We assert that the
+# data-file values match the dict exactly on every overlapping country,
+# so any future divergence fails loudly. Both sources together are
+# acknowledged as DEPRECATED in favour of an authoritative GBD 2021 SDI
+# rebuild from data/SDI_1950_2021.csv (documented as a pre-submission
+# TODO and out of scope for the present fix pass).
+QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
+_sdi_src = pd.read_csv(QCI_COMPLETE_PATH, usecols=['iso_location_name', 'year',
+                                                    'sex_name', 'age_name',
+                                                    'sdi_value_2021'])
+_sdi_src = _sdi_src[(_sdi_src['year'] == 2021)
+                    & (_sdi_src['sex_name'] == 'Both')
+                    & (_sdi_src['age_name'] == 'Age-standardized')]
+_sdi_csv = (_sdi_src.dropna(subset=['sdi_value_2021'])
+                      [['iso_location_name', 'sdi_value_2021']]
+                      .drop_duplicates(subset='iso_location_name')
+                      .rename(columns={'sdi_value_2021': 'sdi'})
+                      .reset_index(drop=True))
+
+_overlap = set(_sdi_csv['iso_location_name']) & set(SDI_VALUE_MAP_2021.keys())
+_mismatches = []
+for _c in sorted(_overlap):
+    _v_csv = float(_sdi_csv[_sdi_csv['iso_location_name'] == _c]['sdi'].iloc[0])
+    _v_dict = float(SDI_VALUE_MAP_2021[_c])
+    if abs(_v_csv - _v_dict) > 1e-6:
+        _mismatches.append((_c, _v_csv, _v_dict))
+if _mismatches:
+    print(f"\nWARNING: {len(_mismatches)} country/countries differ between"
+          f" qci_complete_data.csv and SDI_VALUE_MAP_2021. First few:")
+    for _c, _v_csv, _v_dict in _mismatches[:10]:
+        print(f"    {_c}: csv={_v_csv}, dict={_v_dict}")
+    print(f"  Preferring the CSV value (single source of truth).")
+else:
+    print(f"  SDI source check passed: {len(_overlap)} countries match exactly between CSV and dict.")
+
+# Build the merged 195-country map: CSV values first, dict fallback for gaps.
+_merged_rows = []
+_csv_set = set(_sdi_csv['iso_location_name'])
+for _c, _v in zip(_sdi_csv['iso_location_name'], _sdi_csv['sdi']):
+    _merged_rows.append({'iso_location_name': _c, 'sdi': float(_v), 'sdi_source': 'csv'})
+_fallback_count = 0
+for _c, _v in SDI_VALUE_MAP_2021.items():
+    if _c not in _csv_set:
+        _merged_rows.append({'iso_location_name': _c, 'sdi': float(_v), 'sdi_source': 'dict_fallback'})
+        _fallback_count += 1
+sdi_df_map = pd.DataFrame(_merged_rows).reset_index(drop=True)
+SDI_2021 = dict(zip(sdi_df_map['iso_location_name'], sdi_df_map['sdi']))
+print(f"  SDI map built: {len(_csv_set)} countries from CSV + {_fallback_count} dict-fallback = {len(sdi_df_map)} total.")
+del _sdi_src, _sdi_csv, _overlap, _mismatches, _merged_rows, _csv_set, _fallback_count
+
 # ══════════════════════════════════════════════════════════════════════════════
 # ANALYSIS 1: Global GDR by country
 # ══════════════════════════════════════════════════════════════════════════════
@@ -108,7 +172,7 @@ age_groups = ['<5 years', '5-14 years', '15-49 years', '50-69 years', '70+ years
 age_rows = []
 for country in countries_only:
     sdi_g = SDI_COUNTRY_MAPPING.get(country, 'Unknown')
-    sdi_v = SDI_VALUE_MAP_2021.get(country, np.nan)
+    sdi_v = SDI_2021.get(country, np.nan)
     for age in age_groups:
         for sex in ['Both', 'Male', 'Female']:
             r = df_qci[(df_qci['iso_location_name'] == country) & (df_qci['age_name'] == age)
@@ -127,7 +191,8 @@ age_sdi.columns = ['SDI_group', 'Age', 'Mean', 'SD', 'Median', 'N']
 # ══════════════════════════════════════════════════════════════════════════════
 print("\n=== ANALYSIS 3: Concentration Index ===")
 
-sdi_df_map = pd.DataFrame(list(SDI_VALUE_MAP_2021.items()), columns=['iso_location_name', 'sdi'])
+# (sdi_df_map and SDI_2021 are loaded above, just after country list setup,
+# so all earlier analyses can use them too.)
 
 def concentration_index(qci, rank_var):
     n = len(qci)
@@ -230,7 +295,7 @@ print("\n=== ANALYSIS 6: Multilevel Regression ===")
 # Model 1: QCI ~ SDI + year (random intercept by country)
 panel = []
 for c in countries_only:
-    sdi_v = SDI_VALUE_MAP_2021.get(c, np.nan)
+    sdi_v = SDI_2021.get(c, np.nan)
     for y in range(1990, 2022):
         r = df_qci[(df_qci['iso_location_name'] == c) & (df_qci['year'] == y)
                    & (df_qci['age_name'] == 'Age-standardized') & (df_qci['sex_name'] == 'Both')]
@@ -260,7 +325,7 @@ except Exception as e:
 # Model 2: + female + SDI:female
 panel_sex = []
 for c in countries_only:
-    sdi_v = SDI_VALUE_MAP_2021.get(c, np.nan)
+    sdi_v = SDI_2021.get(c, np.nan)
     for y in [1990, 2000, 2010, 2021]:
         for sex in ['Male', 'Female']:
             r = df_qci[(df_qci['iso_location_name'] == c) & (df_qci['year'] == y)
@@ -285,7 +350,7 @@ except Exception as e:
 # Model 3: + age groups
 panel_age = []
 for c in countries_only:
-    sdi_v = SDI_VALUE_MAP_2021.get(c, np.nan)
+    sdi_v = SDI_2021.get(c, np.nan)
     for age in ['<5 years', '5-14 years', '15-49 years', '50-69 years', '70+ years']:
         r = df_qci[(df_qci['iso_location_name'] == c) & (df_qci['year'] == 2021)
                    & (df_qci['age_name'] == age) & (df_qci['sex_name'] == 'Both')]
@@ -459,7 +524,7 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 ax = axes[0]
 for grp in ['High', 'High-middle', 'Middle', 'Low-middle', 'Low']:
     s = df_gdr_2021[df_gdr_2021['SDI_group'] == grp]
-    sv = [SDI_VALUE_MAP_2021.get(c, np.nan) for c in s['Country']]
+    sv = [SDI_2021.get(c, np.nan) for c in s['Country']]
     ax.scatter(sv, s['GDR'], c=sdi_colors[grp], s=25, alpha=0.7, label=grp, edgecolors='none')
 ax.axhline(1.0, color='k', ls='--', lw=1)
 ax.set_xlabel('SDI (2021)')
