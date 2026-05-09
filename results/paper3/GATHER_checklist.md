@@ -12,12 +12,12 @@
 | 4 | Specify the inclusion and exclusion criteria. Identify all ad-hoc exclusions. | Yes | Methods, Data Sources (para 1-2) |
 | 5 | Provide information on all included data sources and their main characteristics. For each data source used, report reference information or contact name/institution, population represented, data collection method, year(s) of data collection, sex and age range, diagnostic criteria or measurement method, and sample size, as relevant. | Yes | Methods, Data Sources; GBD 2021 methodology references |
 | 6 | Provide a detailed description of the analytical methods used. This description should cover: mathematical formulae, computational methods, data adjustments, methods for handling missing values, model validation, and uncertainty quantification. | Yes | Methods, QCI Construction (para 2-3); Methods, Statistical Analysis (para 1-3) |
-| 7 | Describe methods for calculating uncertainty of the estimates. State which sources of uncertainty were, and were not, accounted for in the uncertainty analysis. | Partially | Methods, Statistical Analysis (AAPC CIs); Discussion, Limitations (uncertainty limitations acknowledged) |
+| 7 | Describe methods for calculating uncertainty of the estimates. State which sources of uncertainty were, and were not, accounted for in the uncertainty analysis. | Partially | Methods, Statistical Analysis (AAPC CIs from t-distribution; Moran's I significance from 999 permutations); Discussion, Strengths and limitations. Sources of uncertainty NOT accounted for: (a) provincial-level GBD UIs are not propagated through the QCI for Iran's provinces; (b) Shapley decomposition point estimates are not accompanied by bootstrap CIs; (c) the Moran's I estimates partly reflect GBD's covariate-based spatial smoothing rather than only true spatial heterogeneity (acknowledged in Discussion). |
 | 8 | State how analytic and/or statistical choices were made, noting which choices could affect estimates. | Yes | Methods, Statistical Analysis; Discussion |
 | 9 | Provide the main results of the analysis, including measures of uncertainty. | Yes | Results, all subsections; Tables 1-8; Figures 1-13 |
 | 10 | Provide a comparison with previously published estimates, if possible. | Yes | Discussion, Comparison with Literature (para 1-2); Table 5 (MENA comparison) |
 | 11 | Discuss limitations of the estimates. Include a discussion of any modelling assumptions or data limitations that affect interpretation. | Yes | Discussion, Limitations (para 1-5) |
-| 12 | State how the analytic code and data set can be accessed. | Partially | Methods (GBD data query tool reference); code available upon request |
+| 12 | State how the analytic code and data set can be accessed. | Partially | Input data are publicly available via the GBD Results Tool. The analytic code repository URL is a placeholder pending pre-submission archival to Zenodo; this is tracked as a pre-submission TODO. |
 
 ---
 
