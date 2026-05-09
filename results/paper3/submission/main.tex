@@ -69,7 +69,7 @@
 
 Spatial analysis confirmed significant geographic clustering (Moran's I = 0.324 in 1990, declining to 0.211 in 2021), with LISA identifying a Low-Low cluster in the northeast (North and South Khorasan) and a High-High cluster in the Zagros region (Kohgiluyeh and Boyer-Ahmad). Shapley decomposition showed that provincial QCI gaps were driven primarily by the YLL-to-YLD ratio (37.2\%), followed by the DALY-to-prevalence ratio (34.9\%) and MIR (27.8\%).
 
-\textbf{Interpretation:} Iran has achieved high and progressively more equitable DS-TB care quality across all 31 provinces, with pronounced convergence over three decades. Residual gaps in Sistan and Baluchistan, Golestan, and southeastern provinces are driven by a combination of excess disease burden and elevated case fatality, with the YLL-to-YLD ratio contributing the largest share of the QCI gap. Targeted strengthening of TB diagnostic and treatment services in these regions, informed by province-specific component profiles, could further narrow subnational disparities.
+\textbf{Interpretation:} Iran has achieved high and progressively more equitable DS-TB care quality across all 31 provinces, with pronounced convergence over three decades. Residual gaps in Sistan and Baluchistan, Golestan, and southeastern provinces are accounted for by a combination of excess disease burden and elevated case fatality, with the YLL-to-YLD ratio contributing the largest share of the QCI gap in the structural decomposition. Targeted strengthening of TB diagnostic and treatment services in these regions, informed by province-specific component profiles, could further narrow subnational disparities.
 
 \textbf{Funding:} None.
 
@@ -191,13 +191,13 @@ LISA analysis for 2021 identified four provinces with statistically significant 
 
 \subsection{Decomposition of provincial QCI gaps}
 
-Shapley decomposition revealed that the QCI gap from the best-performing province was driven by all three component ratios, with the YLL-to-YLD ratio contributing the largest share on average (37.2\%), followed by the DALY-to-prevalence ratio (34.9\%) and the MIR (27.8\%) (Table~\ref{tab:table6}; Figure~\ref{fig:figure13}).
+Shapley decomposition apportioned the QCI gap from the best-performing province across all three component ratios, with the YLL-to-YLD ratio contributing the largest share on average (37.2\%), followed by the DALY-to-prevalence ratio (34.9\%) and the MIR (27.8\%) (Table~\ref{tab:table6}; Figure~\ref{fig:figure13}). Because the QCI is a linear function of the three ratios by construction, this attribution is a structural decomposition of the index's own variance and does not by itself establish independent causal contributions.
 
 For Sistan and Baluchistan, the largest gap from the best province (3.58 points), the attribution was: MIR 27.9\% (1.00 points), YLLtoYLD 36.6\% (1.31 points), and DALtoPER 35.5\% (1.27 points). This indicates that while case fatality (MIR) is the most visible driver of poor outcomes, the excess disease burden per case (YLLtoYLD and DALtoPER) contributes even more to the overall care quality deficit.
 
 Tehran exhibited a distinctive decomposition pattern: only 9.9\% of its QCI gap from the best was attributable to MIR, compared with 47.1\% for YLLtoYLD and 43.0\% for DALtoPER. This suggests that Tehran has achieved relatively low case fatality but has higher disease severity per case, potentially reflecting the referral of complex cases to Tehran's tertiary hospitals.
 
-West Azarbayejan showed the highest MIR contribution (36.6\%) among all provinces, suggesting that case fatality rather than disease burden is the primary driver of its gap.
+West Azarbayejan showed the highest MIR contribution (36.6\%) among all provinces, indicating that case fatality rather than disease burden accounts for the largest share of its structural QCI gap.
 
 \subsection{Gender disparities}
 
@@ -243,7 +243,7 @@ This study provides the first comprehensive, provincial-level assessment of DS-T
 
 Iran has achieved remarkably high DS-TB care quality by international standards, with all 31 provinces exceeding a QCI of 95 in 2021 and a national QCI of 97.42. This performance is consistent with the known strengths of Iran's integrated PHC network, the behvarz (community health worker) system, and the national TB programme's DOTS implementation.\textsuperscript{3,9}
 
-Nevertheless, the 3.58-point provincial range and the persistent identification of the same southeastern provinces at the bottom of the ranking indicate that geographic inequity, though diminished, has not been eliminated. The fact that Sistan and Baluchistan's MIR (0.142) is approximately three times that of the best provinces underscores that case fatality --- driven by delayed diagnosis, treatment interruptions, and cross-border population dynamics --- remains the principal driver of provincial variation.\textsuperscript{10}
+Nevertheless, the 3.58-point provincial range and the persistent identification of the same southeastern provinces at the bottom of the ranking indicate that geographic inequity, though diminished, has not been eliminated. The fact that Sistan and Baluchistan's MIR (0.142) is approximately three times that of the best provinces underscores that case fatality --- which is plausibly shaped by delayed diagnosis, treatment interruptions, and cross-border population dynamics, although the present data cannot establish those mechanisms causally --- remains the largest single contributor to the structural decomposition of provincial variation.\textsuperscript{10}
 
 \subsection{Strong convergence over three decades}
 
@@ -259,7 +259,7 @@ The identification of Khuzestan as a Low-High spatial outlier --- a relatively l
 
 \subsection{Decomposition identifies province-specific intervention priorities}
 
-The Shapley decomposition provides actionable insights for targeted interventions.\textsuperscript{21} The finding that the YLL-to-YLD ratio contributes the largest share (37.2\%) of the average provincial QCI gap suggests that premature mortality burden relative to disability is the dominant driver of inter-provincial variation. This ratio captures the balance between death and morbidity --- provinces with high YLL-to-YLD ratios have a disproportionate burden of premature TB deaths relative to the disability experienced by surviving patients.
+The Shapley decomposition provides a structural map of where provincial QCI gaps sit, which can guide hypothesis generation for targeted interventions; it does not, on its own, identify causal determinants.\textsuperscript{21} The finding that the YLL-to-YLD ratio contributes the largest share (37.2\%) of the average provincial QCI gap indicates that the premature-mortality-versus-disability balance accounts for the largest single fraction of inter-provincial variation in the index. This ratio captures the balance between death and morbidity --- provinces with high YLL-to-YLD ratios have a disproportionate burden of premature TB deaths relative to the disability experienced by surviving patients.
 
 The province-specific decomposition profiles are particularly informative. Tehran's unique pattern (only 9.9\% MIR contribution but 47.1\% YLL-to-YLD) suggests that while the capital achieves low case fatality, it experiences higher disease severity per case --- possibly reflecting referral patterns that concentrate complex and advanced TB cases in Tehran's tertiary hospitals. In contrast, West Azarbayejan's high MIR contribution (36.6\%) suggests that case fatality is the primary target for improvement in that province.
 
