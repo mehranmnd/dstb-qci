@@ -2,17 +2,52 @@
 QCI Uncertainty Estimation via Monte Carlo Simulation
 =====================================================
 Propagates GBD 95% uncertainty intervals through the QCI pipeline
-using 1000 Monte Carlo draws per location-year row.
+using N_DRAWS Monte Carlo draws per location-year row.
+
+Sampling distribution
+---------------------
+Each of the six GBD input measures (Deaths, Incidence, YLLs, YLDs, DALYs,
+Prevalence) is sampled from a log-normal distribution parameterised so that
+the GBD point estimate is the median and the GBD 95% UI bounds are
+approximately the 2.5th and 97.5th percentiles of the resulting draws on
+the natural scale. Log-normal sampling is used (in place of the symmetric
+normal sampling used in earlier versions of this script) for three reasons:
+  1. GBD inputs are non-negative rates, so a normal distribution can produce
+     negative draws that must then be hard-clipped, biasing the lower tail;
+  2. GBD UIs are typically asymmetric about the point estimate, and a
+     log-normal naturally reproduces this asymmetry on the natural scale
+     without an explicit asymmetric specification;
+  3. Ratios of two log-normal variables (e.g., MIR = Deaths / Incidence) are
+     also log-normal in distribution, which is closer to GBD's own modelling
+     framework than a ratio of normals.
+
+Sources of uncertainty NOT propagated
+-------------------------------------
+  * Covariance between the six GBD input measures: the six measures are
+    sampled independently in this script, but in GBD's underlying model they
+    share structure (e.g., DALYs = YLLs + YLDs by definition; Deaths and
+    Incidence share covariates in DisMod-MR). Independent sampling therefore
+    UNDERESTIMATES the true uncertainty in the QCI. Proper handling would
+    require access to GBD's per-draw output files (1000 correlated draws
+    per measure-location-year), which were not used here.
+  * Uncertainty in the PCA loadings themselves: scaler means/SDs and PCA
+    components are treated as fixed parameters loaded from the trained model.
+  * Structural model uncertainty in DisMod-MR 2.1 (i.e., model
+    misspecification) is not propagated through the GBD UIs themselves.
 
 Author: Generated for thesis analysis
 Date: 2025
+Revised: 2026-05 (log-normal sampling; fix-1.5 in CHANGELOG.md)
 """
 
+import os
 import numpy as np
 import pandas as pd
 import joblib
 import sys
 import time
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 # -- Configuration ------------------------------------------------------------
 N_DRAWS      = 1000
@@ -49,7 +84,61 @@ FOCUS_YEARS = [1990, 2021]
 # -- Load data & model --------------------------------------------------------
 print("Loading data ...")
 df_all = pd.read_csv(DATA_PATH)
-model  = joblib.load(MODEL_PATH)
+
+
+def build_pca_model(df, features=("MIR", "YLLtoYLD", "DALtoPER")):
+    """Rebuild the PCA model from the global age-standardized, both-sexes
+    training set. Mirrors the original methodology used to construct the
+    QCI: fit StandardScaler + PCA(n_components=1) on the training stratum,
+    enforce a sign convention such that PC1 is negatively correlated with
+    MIR (so that higher PC1 = better quality), and record the global
+    min/max of the signed PC1 scores ACROSS ALL DEMOGRAPHIC STRATA (not
+    just the training stratum) for later 0--100 rescaling. The min/max
+    is taken across all strata because the original QCI methodology
+    rescales using "global minimum-maximum normalisation across all
+    country-year observations" (see Paper 1 Methods, PCA subsection).
+    """
+    train = df[(df["sex_name"] == "Both") & (df["age_name"] == "Age-standardized")]
+    train = train.dropna(subset=list(features))
+    X_train = train[list(features)].values
+
+    scaler_local = StandardScaler().fit(X_train)
+    Z_train = scaler_local.transform(X_train)
+    pca_local = PCA(n_components=1).fit(Z_train)
+    pc1_train = pca_local.transform(Z_train).ravel()
+
+    # Sign so PC1 negatively correlates with MIR (higher PC1 = better)
+    sign_local = -1 if np.corrcoef(pc1_train, train["MIR"].values)[0, 1] > 0 else 1
+
+    # Min/max across ALL strata (including age groups and sex categories)
+    all_rows = df.dropna(subset=list(features))
+    X_all = all_rows[list(features)].values
+    Z_all = scaler_local.transform(X_all)
+    pc1_all_signed = (Z_all @ pca_local.components_[0]) * sign_local
+
+    return {
+        "scaler_mean_":     scaler_local.mean_,
+        "scaler_scale_":    scaler_local.scale_,
+        "pca_components_":  pca_local.components_,
+        "sign":             sign_local,
+        "lo_all":           float(pc1_all_signed.min()),
+        "hi_all":           float(pc1_all_signed.max()),
+        "features":         list(features),
+        "n_train":          int(len(train)),
+        "n_all":            int(len(all_rows)),
+        "var_explained_pct": float(pca_local.explained_variance_ratio_[0] * 100.0),
+    }
+
+
+if os.path.exists(MODEL_PATH):
+    print(f"Loading PCA model from {MODEL_PATH}")
+    model = joblib.load(MODEL_PATH)
+else:
+    print(f"PCA model not found at {MODEL_PATH}; rebuilding from data ...")
+    model = build_pca_model(df_all)
+    joblib.dump(model, MODEL_PATH)
+    print(f"  Saved rebuilt model to {MODEL_PATH}")
+    print(f"  n_train={model['n_train']}, var_explained_pct={model['var_explained_pct']:.2f}")
 
 scaler_mean  = model["scaler_mean_"]
 scaler_scale = model["scaler_scale_"]
@@ -99,9 +188,24 @@ for idx, row in df.iterrows():
         val   = row[f"val_{var}"]
         lower = row[f"lower_{var}"]
         upper = row[f"upper_{var}"]
-        std = (upper - lower) / (2 * 1.96)
-        draws = rng.normal(loc=val, scale=max(std, 1e-15), size=N_DRAWS)
-        draws = np.maximum(draws, 1e-15)
+
+        # Log-normal sampling: parameterise so the GBD point estimate is the
+        # median (= geometric mean) of the draws on the natural scale, and the
+        # GBD lower/upper UI bounds approximately bracket the central 95% of
+        # the draws. This guarantees positive draws (rates cannot be negative)
+        # and naturally accommodates the asymmetry that is typical of GBD UIs
+        # about the point estimate.
+        eps = 1e-12
+        val_pos   = max(float(val),   eps)
+        lower_pos = max(float(lower), eps)
+        upper_pos = max(float(upper), eps)
+
+        log_mu = np.log(val_pos)
+        log_sd = (np.log(upper_pos) - np.log(lower_pos)) / (2 * 1.96)
+        log_sd = max(log_sd, 1e-15)
+
+        log_draws = rng.normal(loc=log_mu, scale=log_sd, size=N_DRAWS)
+        draws = np.exp(log_draws)
         measures[var] = draws
 
     mir_draws      = measures["Deaths"]   / measures["Incidence"]
