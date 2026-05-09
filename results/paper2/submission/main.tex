@@ -97,6 +97,10 @@ This study uses the DS-TB Quality of Care Index developed by [Author et al.],\te
 
 The Socio-demographic Index (SDI), a composite of per-capita income, educational attainment, and total fertility rate,\textsuperscript{10} served as the socioeconomic ranking variable for wealth-related inequality measures. Country-level SDI values for 2021 were obtained from the GBD.
 
+\subsection{Index scope and component collinearity}
+
+Because the QCI is derived from three GBD-based outcome ratios (MIR, YLLtoYLD, DALtoPER) that share input quantities by construction, the three ratios are mathematically related rather than measurement-independent, and the high proportion of variance captured by PC1 in the source paper (87.98\%) reflects this structural collinearity.\textsuperscript{5} Throughout this study the QCI is therefore interpreted as a smoothed composite of population-level mortality-intensity rather than as a multidimensional measure of orthogonal care-quality domains, and ``Quality of Care'' refers to outcome-based, ecological performance rather than to process-of-care quality. This interpretive framing is important for the inequality analyses that follow, particularly the Wagstaff decomposition (below), in which the regression of QCI on its three components attains $R^2$ near unity by construction; we therefore treat the component-level decomposition as a structural attribution of the index's own variance rather than as the identification of independent causal determinants of inequality.
+
 \subsection{Concentration Index}
 
 The Concentration Index (CI) quantifies the extent to which a health variable is concentrated among advantaged or disadvantaged populations when ranked by a socioeconomic indicator.\textsuperscript{6} We computed the CI using the covariance formula:
