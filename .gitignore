@@ -1,0 +1,42 @@
+# --- Large raw data (regenerable from IHME GHDx) ---
+archive.zip
+data/ihme.csv
+data/HAQ.CSV
+data/SDI_1950_2021.csv
+data/ihme_data/
+data/ne_110m/
+data/iran_shapefile/
+
+# --- Derived / intermediate model artefacts ---
+code/qci_pca_model.joblib
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --- LaTeX build artefacts (keep .tex and final .pdf, drop intermediates) ---
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# --- Working scratch ---
+*.tmp
+*~
