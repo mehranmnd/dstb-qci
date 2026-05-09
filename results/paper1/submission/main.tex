@@ -127,7 +127,7 @@ Temporal trends were quantified using average annual percent change (AAPC), esti
 
 \subsection{Validation}
 
-Construct validity was assessed by Spearman rank correlation between country-level QCI in 2021 and the GBD Socio-demographic Index (SDI), a composite measure of per-capita income, educational attainment, and fertility rate.\textsuperscript{8,32} The SDI was selected as the primary external validator because it captures the socioeconomic determinants that underpin health system capacity.
+We assessed construct validity against three external benchmarks of progressively narrower domain. First, Spearman rank correlation between country-level QCI in 2021 and the GBD Socio-demographic Index (SDI), a composite measure of per-capita income, educational attainment, and fertility rate.\textsuperscript{8,32} SDI captures the broad socioeconomic determinants that underpin health system capacity but is not itself a healthcare indicator. Second, the GBD Healthcare Access and Quality (HAQ) Index, a domain-relevant healthcare-system performance index that synthesises mortality-to-incidence ratios across 32 amenable causes,\textsuperscript{6} compared at year 2019 (the latest year present in our locally-archived HAQ release). Third, the WHO Treatment Success Rate for newly notified DS-TB cases under post-2012 outcome definitions (variable c\_new\_tsr from the WHO Global TB Programme Treatment Outcomes bulk download, accessed 9 May 2026), compared at year 2019. The three validators differ qualitatively: SDI is upstream of healthcare; HAQ is a broad cross-condition healthcare composite; WHO TSR is a programme-level treatment-pipeline indicator. Concordance with SDI and HAQ supports general construct validity; concordance --- or lack thereof --- with WHO TSR helps locate the QCI within the existing TB-monitoring landscape.
 
 \subsection{Ethical approval}
 
@@ -165,7 +165,7 @@ A clear SDI gradient in QCI was observed in 2021 (Figure~2; Figure~3). High-midd
 
 The observation that high-middle SDI slightly surpassed high SDI may reflect the epidemiological composition of these groupings: high-middle SDI includes countries such as China (QCI 98.68) and Cuba (99.04) that have achieved exceptionally strong TB outcomes relative to their development level,\textsuperscript{29} while several high-SDI countries carry legacy burdens among ageing or marginalised populations.\textsuperscript{31}
 
-Country-level validation confirmed a strong monotonic association between QCI and SDI (Spearman rho = 0.768, p = 2.03 $\times$ 10\textsuperscript{--31}; Pearson r = 0.712, p = 2.71 $\times$ 10\textsuperscript{--25}; n = 155 countries). Importantly, low-SDI countries exhibited faster QCI convergence (AAPC +0.135\%, +0.130 to +0.141) than high-SDI countries (+0.093\%, +0.083 to +0.103), suggesting a narrowing of the development-quality gap over time. All 45 high-SDI countries (100\%) achieved QCI above 90 in 2021, compared with 33 of 40 low-SDI countries (82.5\%).
+Country-level validation against SDI confirmed a strong monotonic association (Spearman rho = 0.768, p = 2.03 $\times$ 10\textsuperscript{--31}; Pearson r = 0.712, p = 2.71 $\times$ 10\textsuperscript{--25}; n = 155 countries). Validation against the GBD HAQ Index at year 2019 produced a stronger correlation (Spearman rho = 0.824, p = 2.03 $\times$ 10\textsuperscript{--49}; Pearson r = 0.738, p = 8.94 $\times$ 10\textsuperscript{--35}; n = 195 countries), providing direct convergent evidence with an established healthcare-system performance index. By contrast, validation against the WHO Treatment Success Rate (c\_new\_tsr) at year 2019 yielded a negative correlation (Spearman rho = --0.350, p = 1.60 $\times$ 10\textsuperscript{--6}; n = 179 countries). This negative association is interpretable rather than anomalous: WHO TSR is computed as a ratio over notified cases only, so countries with weak TB-notification systems can simultaneously record high TSR (the small number of cases entering the treatment pipeline are managed effectively) and low QCI (substantial unnotified mortality lowers the index via GBD's incidence imputation). The QCI thus complements rather than replaces WHO TSR by capturing population-level outcomes that the notification-conditional TSR cannot directly observe. Importantly, low-SDI countries exhibited faster QCI convergence (AAPC +0.135\%, +0.130 to +0.141) than high-SDI countries (+0.093\%, +0.083 to +0.103), suggesting a narrowing of the development-quality gap over time. All 45 high-SDI countries (100\%) achieved QCI above 90 in 2021, compared with 33 of 40 low-SDI countries (82.5\%).
 
 \subsection{Country-level variation}
 
@@ -201,7 +201,7 @@ This study presents the first composite, population-level Quality of Care Index 
 
 The QCI complements and extends existing composite measures of health system performance. The GBD Healthcare Access and Quality (HAQ) Index incorporates TB as one of 32 amenable causes but assigns it equal weight alongside conditions with vastly different epidemiological profiles and care cascades.\textsuperscript{6} By contrast, the QCI captures multiple outcome dimensions specific to DS-TB -- case fatality, the mortality-to-morbidity ratio, and burden intensity per prevalent case -- providing a more granular assessment of TB care quality. Our finding that PC1 explains 87.98\% of variance with approximately equal contributions from all three components indicates that these dimensions are highly correlated yet each contributes unique information, justifying a composite approach over any single ratio.
 
-The WHO treatment success rate, the most widely used TB programme indicator, measures only the end of the treatment cascade and does not account for undiagnosed cases, diagnostic delays, or post-treatment sequelae.\textsuperscript{1} The QCI, by contrast, captures the net outcome of the entire care pathway from disease onset to resolution or death, albeit at the ecological rather than individual level.
+The WHO treatment success rate, the most widely used TB programme indicator, measures only the end of the treatment cascade and does not account for undiagnosed cases, diagnostic delays, or post-treatment sequelae.\textsuperscript{1} The QCI, by contrast, captures the net outcome of the entire care pathway from disease onset to resolution or death, albeit at the ecological rather than individual level. This conceptual difference is empirically visible: across 179 countries with both indicators in 2019, QCI and WHO TSR were negatively correlated (Spearman $\rho$ = --0.35; Table~\ref{tab:table4}). The most plausible explanation is that TSR is conditioned on notification --- it counts only patients who entered the treatment pipeline --- while the QCI is constructed from population-level mortality and disease-burden ratios that are also sensitive to unnotified cases. In settings with weak case-finding, the small fraction of notified patients can be managed effectively (yielding a high TSR) while the bulk of incident cases die or remain disabled untreated (lowering the QCI). The two metrics are therefore complementary rather than redundant: TSR remains the appropriate indicator for treatment-pipeline performance, while the QCI summarises the outcome of the entire population-level care cascade. Reassuringly, against the GBD Healthcare Access and Quality Index --- which, like the QCI, is built from outcome ratios rather than notifications --- the QCI shows strong positive concordance (Spearman $\rho$ = 0.82, n = 195; Table~\ref{tab:table4}).
 
 \subsection{Regional disparities}
 
@@ -366,21 +366,27 @@ All ages & 95.43 & 96.09 & 94.90 & 1.013 \\
 
 \begin{table}[htbp]
 \centering
-\caption{Validation summary. Association between QCI (2021) and SDI across 155 countries.}
+\caption{Construct validation of the QCI against three external benchmarks. Cross-country Spearman and Pearson correlations between QCI and: (i) the GBD Socio-demographic Index (SDI) at 2021, (ii) the GBD Healthcare Access and Quality (HAQ) Index at 2019, and (iii) the WHO Treatment Success Rate (c\_new\_tsr) at 2019.}
 \label{tab:table4}
-\begin{tabular}{lccc}
+\small
+\begin{tabular}{lccccl}
 \toprule
-Metric & Value & N & Interpretation \\
+External validator & Year & Spearman $\rho$ & Pearson $r$ & N & Interpretation \\
 \midrule
-Spearman rho & 0.768 & 155 & Strong monotonic association \\
-Pearson r & 0.712 & 155 & Strong linear association \\
-QCI Mean & 95.68 & 155 & -- \\
-QCI Median & 96.38 & 155 & -- \\
-QCI SD & 2.83 & 155 & -- \\
-QCI Range & 82.39--99.94 & 155 & -- \\
-QCI IQR & 3.47 & 155 & -- \\
+SDI (GBD 2021) & 2021 & 0.768 & 0.712 & 155 & Strong, expected \\
+HAQ Index (GBD 2019)\textsuperscript{6} & 2019 & 0.824 & 0.738 & 195 & Stronger; convergent \\
+WHO TSR (c\_new\_tsr) & 2019 & --0.350 & --0.290 & 179 & Negative; complementary \\
+\midrule
+\multicolumn{6}{l}{\textit{Distributional summary of QCI (2021)}} \\
+\midrule
+Mean (SD) & 2021 & \multicolumn{2}{c}{95.68 (2.83)} & 195 & -- \\
+Median (IQR) & 2021 & \multicolumn{2}{c}{96.38 (3.47)} & 195 & -- \\
+Range & 2021 & \multicolumn{2}{c}{82.39--99.94} & 195 & -- \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.5em}
+\noindent\small All correlations significant at $p < 0.001$. The negative QCI--WHO TSR correlation is interpretable rather than anomalous (see text): TSR is conditioned on notification, while QCI captures outcomes among notified and unnotified cases combined.
 \end{table}
 
 %% ============================================================
