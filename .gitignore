@@ -8,6 +8,15 @@ data/ne_110m/
 data/iran_shapefile/
 data/who_tb_outcomes.csv
 
+# --- Large derived analytic intermediate (>100 MB, regenerable) -----------------
+# qci_complete_data.csv is the merged GBD long-form dataset with the three
+# component ratios joined per location-year-sex-age. It is produced from
+# data/ihme.csv via code/notebooks/2.cleaning_data.ipynb and
+# 3.pca_analysis.ipynb. Excluded from the repository because it exceeds
+# GitHub's 100 MB per-file limit; users who want to re-run analyses that
+# depend on it should regenerate it locally (see README).
+results/shared/qci_complete_data.csv
+
 # --- Derived / intermediate model artefacts ---
 code/qci_pca_model.joblib
 
