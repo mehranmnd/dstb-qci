@@ -68,3 +68,12 @@ docs/
 # as prior publication. Local copies backed up under
 # ~/Desktop/thesis-internal-backup-20260518-053008/papers/
 papers/
+
+# --- Derived/intermediate data files (NEVER commit; regenerable via run_all.sh) ---
+# Removed from public repo on 2026-05-18 per conservative interpretation of
+# IHME GBD data licensing — derived CSVs/JSONs may contain GBD-derived values
+# that are not appropriate for redistribution. Local copies backed up under
+# ~/Desktop/thesis-internal-backup-20260518-053008/results-data/
+results/**/*.csv
+results/**/*.json
+results/shared/qci_uncertainty.txt
