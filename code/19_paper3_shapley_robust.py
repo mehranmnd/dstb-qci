@@ -22,7 +22,7 @@ from itertools import combinations
 import numpy as np
 import pandas as pd
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_COMPLETE = os.path.join(BASE, "results/shared/qci_complete_data.csv")
 TABLE_OUT = os.path.join(BASE, "results/paper3/tables/table_shapley_top5_reference.csv")
 JSON_OUT = os.path.join(BASE, "results/paper3/analysis/shapley_robust_summary.json")

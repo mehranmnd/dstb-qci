@@ -1094,3 +1094,25 @@ SEX_NAMES = [
     'Female',
     'Male',
 ]
+
+# ---------------------------------------------------------------------------
+# 16. NON_COUNTRY_LOCATIONS  --  every location name in the IHME data that is
+# NOT a sovereign country (regions, aggregates, subnational units). Used to
+# filter the data down to a country-level analytic sample.
+# ---------------------------------------------------------------------------
+NON_COUNTRY_LOCATIONS = set(WB_REGIONS + SDI_QUINTILES + IRAN_PROVINCES + [
+    'Global', 'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+    'South Asia', 'Central Asia', 'Southeast Asia', 'East Asia',
+    'Eastern Europe', 'Western Europe', 'Central Europe',
+    'Eastern Sub-Saharan Africa', 'Central Sub-Saharan Africa',
+    'Southern Sub-Saharan Africa', 'Western Sub-Saharan Africa',
+    'High-income Asia Pacific', 'High-income North America',
+    'Andean Latin America', 'Central Latin America',
+    'Southern Latin America', 'Tropical Latin America',
+    'Caribbean', 'North Africa and Middle East', 'Australasia',
+    'North America',
+    'World Bank High Income', 'World Bank Low Income',
+    'World Bank Upper Middle Income', 'World Bank Lower Middle Income',
+    'African Region', 'South-East Asia Region', 'Western Pacific Region',
+    'European Region', 'Eastern Mediterranean Region', 'Region of the Americas',
+])

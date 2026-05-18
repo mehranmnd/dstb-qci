@@ -52,9 +52,10 @@ from sklearn.decomposition import PCA
 # -- Configuration ------------------------------------------------------------
 N_DRAWS      = 1000
 SEED         = 42
-DATA_PATH    = "/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci_complete_data.csv"
-MODEL_PATH   = "/Users/mehranmamandipoor/Desktop/thesis/code/qci_pca_model.joblib"
-OUTPUT_PATH  = "/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci_uncertainty.txt"
+BASE         = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH    = os.path.join(BASE, "results/shared/qci_complete_data.csv")
+MODEL_PATH   = os.path.join(BASE, "code/qci_pca_model.joblib")
+OUTPUT_PATH  = os.path.join(BASE, "results/shared/qci_uncertainty.txt")
 
 FOCUS_LOCATIONS = [
     "Global",

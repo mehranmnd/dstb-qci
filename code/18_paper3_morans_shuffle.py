@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 from libpysal.weights import Queen, KNN
 from esda.moran import Moran
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 GEOJSON = os.path.join(BASE, "data/iran_shapefile/iran_provinces.geojson")
 OUT_TABLE = os.path.join(BASE, "results/paper3/tables/table_morans_shuffle_baseline.csv")

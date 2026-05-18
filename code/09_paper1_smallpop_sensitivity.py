@@ -18,7 +18,7 @@ import os
 import json
 import pandas as pd
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 POP_PATH = os.path.join(BASE, "results/shared/population_2021.csv")
 TOP_OUT = os.path.join(BASE, "results/paper1/tables/table_smallpop_excluded_top20.csv")

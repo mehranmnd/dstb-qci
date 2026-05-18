@@ -3,6 +3,7 @@
 PCA Comparison: 3-feature vs 4-feature QCI
 """
 
+import os
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -10,8 +11,9 @@ from sklearn.decomposition import PCA
 from scipy.stats import spearmanr
 import io
 
-DATA   = '/Users/mehranmamandipoor/Desktop/thesis/results/shared/model_data.csv'
-REPORT = '/Users/mehranmamandipoor/Desktop/thesis/results/shared/pca_comparison_3v4.txt'
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA   = os.path.join(BASE, 'results/shared/model_data.csv')
+REPORT = os.path.join(BASE, 'results/shared/pca_comparison_3v4.txt')
 
 FEAT3 = ["MIR", "YLLtoYLD", "DALtoPER"]
 FEAT4 = ["MIR", "YLLtoYLD", "DALtoPER", "PERtoINC"]

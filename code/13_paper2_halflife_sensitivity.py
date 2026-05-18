@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 OUT_TABLE = os.path.join(BASE, "results/paper2/tables/table_halflife_sensitivity.csv")
 OUT_JSON = os.path.join(BASE, "results/paper2/analysis/paper2_halflife_summary.json")

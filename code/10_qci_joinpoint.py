@@ -29,7 +29,7 @@ import pwlf
 
 warnings.filterwarnings("ignore")
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_joinpoint_focus.csv")
 OUT_JSON = os.path.join(BASE, "results/paper1/qci_joinpoint_summary.json")

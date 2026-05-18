@@ -6,15 +6,17 @@ Computes AAPC via log-linear regression: ln(QCI) = beta_0 + beta_1*year
 AAPC = (exp(beta_1) - 1) * 100;  95% CI from standard error of beta_1.
 """
 
+import os
 import pandas as pd
 import numpy as np
 from scipy import stats
 import warnings
 warnings.filterwarnings('ignore')
 
-QCI_PATH = '/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci.csv'
-QCI_COMPLETE_PATH = '/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci_complete_data.csv'
-OUTPUT_PATH = '/Users/mehranmamandipoor/Desktop/thesis/results/shared/aapc_results.txt'
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QCI_PATH = os.path.join(BASE, 'results/shared/qci.csv')
+QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
+OUTPUT_PATH = os.path.join(BASE, 'results/shared/aapc_results.txt')
 
 print("Loading data...")
 df = pd.read_csv(QCI_PATH)

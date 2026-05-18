@@ -25,7 +25,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WHO_PATH = os.path.join(BASE, "data/who_tb_outcomes.csv")
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_qci_who_tsr_validation.csv")

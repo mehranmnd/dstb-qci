@@ -28,7 +28,7 @@ import os
 import json
 
 # ── Paths ────────────────────────────────────────────────────────────────────
-BASE = '/Users/mehranmamandipoor/Desktop/thesis'
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
 OUTPUT_DIR = os.path.join(BASE, 'results/paper3/figures')
 TABLE_DIR = os.path.join(BASE, 'results/paper3/tables')

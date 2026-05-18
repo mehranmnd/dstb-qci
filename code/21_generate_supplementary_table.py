@@ -20,8 +20,9 @@ from mappings import SDI_COUNTRY_MAPPING
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-INPUT_PATH = "/Users/mehranmamandipoor/Desktop/thesis/results/shared/aapc_results.csv"
-OUTPUT_PATH = "/Users/mehranmamandipoor/Desktop/thesis/results/paper1/submission/table_s3_all_countries.tex"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INPUT_PATH = os.path.join(BASE, "results/shared/aapc_results.csv")
+OUTPUT_PATH = os.path.join(BASE, "results/paper1/tables/table_s3_all_countries.tex")
 
 # ---------------------------------------------------------------------------
 # Load and filter data

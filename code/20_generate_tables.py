@@ -12,9 +12,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Configuration
-QCI_PATH = "/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci.csv"
-COMPLETE_PATH = "/Users/mehranmamandipoor/Desktop/thesis/results/shared/qci_complete_data.csv"
-OUTPUT_DIR = "/Users/mehranmamandipoor/Desktop/thesis/results/paper1/tables"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
+COMPLETE_PATH = os.path.join(BASE, "results/shared/qci_complete_data.csv")
+OUTPUT_DIR = os.path.join(BASE, "results/paper1/tables")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Load data

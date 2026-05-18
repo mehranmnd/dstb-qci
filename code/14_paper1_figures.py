@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 # ======================================================================
 # PATHS
 # ======================================================================
-BASE = "/Users/mehranmamandipoor/Desktop/thesis/results"
+BASE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
 QCI_PATH = os.path.join(BASE, "shared/qci.csv")
 QCI_COMPLETE_PATH = os.path.join(BASE, "shared/qci_complete_data.csv")
 AAPC_PATH = os.path.join(BASE, "shared/aapc_results.csv")

@@ -14,7 +14,7 @@ This is used by Phase 2.2 (population-weighted concentration index).
 import os
 import pandas as pd
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IHME_PATH = os.path.join(BASE, "data/ihme.csv")
 OUT_PATH = os.path.join(BASE, "results/shared/population_2021.csv")
 

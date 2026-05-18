@@ -20,14 +20,14 @@ import statsmodels.api as sm
 
 warnings.filterwarnings("ignore")
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(BASE, "results")
 P2 = os.path.join(RESULTS, "paper2/analysis")
 FIG_DIR = os.path.join(RESULTS, "paper2/figures")
 os.makedirs(FIG_DIR, exist_ok=True)
 
 sys.path.insert(0, os.path.join(BASE, "code"))
-from mappings import SDI_COUNTRY_MAPPING, SDI_VALUE_MAP_2021
+from mappings import SDI_COUNTRY_MAPPING, SDI_VALUE_MAP_2021, NON_COUNTRY_LOCATIONS
 
 # Style
 plt.rcParams.update({
@@ -158,11 +158,7 @@ plt.close(fig)
 print("Figure 3: Concentration curve...")
 qci_simple = pd.read_csv(os.path.join(RESULTS, "shared/qci.csv"))
 
-# Build WB_REGION_MAPPING (same as in analysis)
-# (reusing the same mapping from the analysis script)
-from paper2_analysis import WB_REGION_MAPPING, exclude_set
-
-df_cc = qci_simple[~qci_simple["iso_location_name"].isin(exclude_set)].copy()
+df_cc = qci_simple[~qci_simple["iso_location_name"].isin(NON_COUNTRY_LOCATIONS)].copy()
 df_cc["sdi_value"] = df_cc["iso_location_name"].map(SDI_VALUE_MAP_2021)
 df_cc["sdi_group"] = df_cc["iso_location_name"].map(SDI_COUNTRY_MAPPING)
 

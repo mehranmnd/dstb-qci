@@ -1,84 +1,85 @@
-# DS-TB Quality of Care Index — Thesis Repository
+# DS-TB Quality of Care Index
 
-This repository contains the analytic code, paper manuscripts, and intermediate results for a three-paper thesis on a population-level Quality of Care Index (QCI) for drug-susceptible tuberculosis, derived from Global Burden of Disease (GBD) 2021 estimates.
+Analytic code for a three-paper thesis on a population-level Quality of Care Index (QCI) for drug-susceptible tuberculosis, derived from Global Burden of Disease (GBD) 2021 estimates.
 
-## Directory layout
+- **Paper 1** — global QCI, 204 countries, 1990-2021
+- **Paper 2** — global equity (concentration index, Theil, multilevel models)
+- **Paper 3** — Iran subnational analysis (31 provinces, spatial decomposition)
+
+Figures, tables, and the manuscripts themselves are withheld from this archive until peer-reviewed publication. Running the pipeline against a local copy of the GBD 2021 inputs regenerates every figure and every derived table used in the manuscripts.
+
+## Repository contents
 
 ```
-thesis/
-├── code/             Python scripts that produce every analysis output
-│   └── notebooks/    Older Jupyter notebooks (kept for reference)
-├── data/             Input data (most files gitignored — see .gitignore)
-│   ├── ihme.csv                 GBD 2021 bulk DS-TB results (~1.5 GB)
-│   ├── HAQ.CSV                  GBD HAQ Index (1990-2019, all causes)
-│   ├── SDI_1950_2021.csv        GBD Socio-demographic Index
-│   ├── who_tb_outcomes.csv      WHO TB Treatment Outcomes (download instructions in code/qci_vs_who_tsr_validation.py)
-│   ├── iran_shapefile/          Iran province boundaries (GeoJSON)
-│   └── ne_110m/                 Natural Earth country boundaries
-├── docs/             Thesis drafts (PDF/RTF), proposal, audit notes
-├── papers/           Canonical paper sources (one directory per paper)
-│   ├── paper1/       main.tex, cover_letter.tex, supplementary.tex,
-│   │                 GATHER_checklist.md
-│   ├── paper2/       main.tex, GATHER_checklist.md
-│   └── paper3/       main.tex, GATHER_checklist.md
-├── results/          Analysis outputs (one directory per paper plus shared)
-│   ├── shared/       qci.csv, qci_uncertainty.csv, aapc_results.csv,
-│   │                 population_2021.csv, qci_complete_data.csv
-│   ├── paper1/       figures/, tables/, summary JSONs
-│   ├── paper2/       figures/, tables/, analysis/ (per-paper JSON outputs)
-│   └── paper3/       figures/, tables/, analysis/, stats.json
-├── archive.zip       Frozen snapshot of the previous Stata/notebook workflow
-├── requirements.txt  Python dependencies
-├── run_all.sh        End-to-end reproducibility pipeline
-├── CHANGELOG.md      Append-only log of all automated changes (2026-05 fix plan)
-├── CITATIONS_VERIFIED.md  PMID/DOI verification log for every new citation
-├── FIX_PROGRESS.md   Per-task state of the 2026-05 fix plan
-├── TODO_FOR_USER.md  Items the author must complete before submission
-└── README.md         This file
-```
-
-## Where the figures live
-
-Each paper's `main.tex` uses `\graphicspath{{../../results/paperN/figures/}}` so that figure files live in one place — alongside the analysis outputs that produced them — rather than being duplicated next to the manuscript source. To compile a paper:
-
-```bash
-cd papers/paper1
-pdflatex main.tex
-bibtex main          # if needed; bibliography is currently inline
-pdflatex main.tex
-pdflatex main.tex
+.
+├── code/
+│   ├── notebooks/                       Stage 0 — QCI construction from raw IHME data
+│   │   ├── 01_creating_ihme_data.ipynb
+│   │   ├── 02_cleaning_data.ipynb
+│   │   ├── 03_pca_analysis.ipynb        produces results/shared/qci_complete_data.csv
+│   │   ├── 04_world_plot.ipynb
+│   │   ├── 05_statistical_analysis.ipynb
+│   │   └── 06_reports.ipynb
+│   ├── mappings.py                      Shared lookup constants
+│   ├── 01_aapc_analysis.py              Stage 1 — QCI-level analyses
+│   ├── 02_qci_uncertainty.py            Monte Carlo uncertainty propagation
+│   ├── 03_extract_population.py
+│   ├── 04_pca_sensitivity_iran_vs_global.py
+│   ├── 05_pca_3v4_comparison.py
+│   ├── 06_qci_vs_haq_validation.py      Stage 2 — external validation
+│   ├── 07_qci_vs_who_tsr_validation.py
+│   ├── 08_qci_logit_sensitivity.py      Stage 3 — sensitivity analyses
+│   ├── 09_paper1_smallpop_sensitivity.py
+│   ├── 10_qci_joinpoint.py
+│   ├── 11_paper2_analysis.py            Stage 4 — Paper 2 (equity)
+│   ├── 12_paper2_pop_weighted_ci.py
+│   ├── 13_paper2_halflife_sensitivity.py
+│   ├── 14_paper1_figures.py             Stage 5 — figures
+│   ├── 15_paper2_figures.py
+│   ├── 16_paper3_analysis.py            Stage 6 — Paper 3 (Iran)
+│   ├── 17_paper3_spatial_decomposition.py
+│   ├── 18_paper3_morans_shuffle.py
+│   ├── 19_paper3_shapley_robust.py
+│   ├── 20_generate_tables.py            Stage 7 — tables
+│   └── 21_generate_supplementary_table.py
+├── requirements.txt
+├── run_all.sh                           One-shot pipeline for Stages 1-7
+├── LICENSE
+└── README.md
 ```
 
 ## Reproducing the analyses
 
-The full pipeline runs from raw inputs to all figures, tables, and summary files:
+### 1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Obtain GBD 2021 data
+
+Register at the [GBD Results Tool](https://vizhub.healthdata.org/gbd-results/) and download the DS-TB extract under IHME's Free-of-Charge Non-Commercial User Agreement. The pipeline expects the following files (none are included in the repo):
+
+| Path | Source |
+|---|---|
+| `data/ihme.csv` | GBD 2021 DS-TB bulk results (204 countries x 32 years x 6 measures x 5 age groups x both sexes) |
+| `data/HAQ.CSV` | GBD HAQ Index (1990-2019, all causes) |
+| `data/SDI_1950_2021.csv` | GBD Socio-demographic Index |
+| `data/iran_shapefile/iran_provinces.geojson` | Iran province boundaries |
+| `data/who_tb_outcomes.csv` | WHO TB Treatment Outcomes (`curl -o data/who_tb_outcomes.csv "https://extranet.who.int/tme/generateCSV.asp?ds=outcomes"`) — optional; step 07 is skipped if absent |
+
+### 3. Stage 0 — build the QCI
+
+Run the six notebooks under `code/notebooks/` in order (`01_` through `06_`). They cleanse the raw IHME bulk extract, fit the PCA, and write the canonical QCI table to `results/shared/qci.csv` plus its full feature matrix to `results/shared/qci_complete_data.csv`. Stages 1-7 depend on these two files.
+
+### 4. Stages 1-7 — analyses, figures, tables
 
 ```bash
 ./run_all.sh
 ```
 
-Each step in `run_all.sh` is a single Python script under `code/`; the script is intentionally simple so individual steps can be re-run on their own. Inputs that are gitignored (`data/ihme.csv` and similar bulk downloads) need to be present locally.
+Each step is a single `python3` invocation. The script aborts on the first failure (`set -e`); downstream steps idempotently regenerate their outputs, so a partial run can be retried by re-invoking the script. Individual scripts can also be run directly (`python3 code/14_paper1_figures.py`) once their upstream inputs exist.
 
-## What the 2026-05 fix plan changed
+## License
 
-A comprehensive multi-phase fix pass landed in May 2026; see `CHANGELOG.md` for the full record (~25 commits). Highlights:
-
-- **Phase 1 (reframing & cleanup)**: scope/collinearity disclosure, "modelled-not-measured" caveats, causal-language scrub, honest GATHER updates, log-normal Monte Carlo uncertainty propagation, dual-source SDI bug eliminated.
-- **Phase 2 (sensitivities & new analyses)**: HAQ Index validation, population-weighted concentration index, logit-transformed AAPCs, small-population sensitivity, joinpoint regression, half-life sensitivity (post-2005), Moran's I shuffle baseline, robust top-5 Shapley reference.
-- **Phase 3 (verified WebFetch)**: WHO Treatment Success Rate validation (negative correlation interpreted as complementary, not redundant).
-- **Phase 4 (manuscript integration)**: all sensitivities folded into Methods, Results, and Discussion sections of the relevant papers.
-- **Phase 5 (handoff)**: `run_all.sh`, `TODO_FOR_USER.md`, word-count audit.
-
-## Single-target-journal policy
-
-The repository deliberately holds **only one** version of each paper. Previous per-journal copies (`paper{1,2,3}/{bmj_global_health,...}/`, `submissions/paperN_*/`) were removed on 2026-05-09 to prevent drift between the canonical source and stale derivatives. When you choose a target journal:
-
-1. Copy `papers/paperN/main.tex` to a working directory.
-2. Reformat references, section structure, and length to that journal's house style.
-3. Submit; do **not** check the journal-specific version back into the canonical `papers/paperN/` location.
-
-If the paper is rejected and you target a different journal, repeat the process from the canonical source.
-
-## Tracking your edits
-
-The repository is git-tracked. The fix-plan commits are tagged `[fix-N.N]` in the commit log. When you complete items from `TODO_FOR_USER.md`, please commit them with a corresponding message tag (e.g., `[user-todo] author list finalised`).
+Code is released under the MIT license — see [LICENSE](LICENSE). The license covers the code in this repository only; the GBD inputs are governed by IHME's Free-of-Charge Non-Commercial User Agreement.

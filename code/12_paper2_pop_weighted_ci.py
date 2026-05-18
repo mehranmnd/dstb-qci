@@ -29,7 +29,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-BASE = "/Users/mehranmamandipoor/Desktop/thesis"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 QCI_COMPLETE_PATH = os.path.join(BASE, "results/shared/qci_complete_data.csv")
 POP_PATH = os.path.join(BASE, "results/shared/population_2021.csv")

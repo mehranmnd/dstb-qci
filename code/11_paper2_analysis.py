@@ -23,7 +23,7 @@ import json
 warnings.filterwarnings('ignore')
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
-BASE = '/Users/mehranmamandipoor/Desktop/thesis'
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, 'results/shared/qci.csv')
 SDI_PATH = os.path.join(BASE, 'data/SDI_1950_2021.csv')
 OUTPUT_DIR = os.path.join(BASE, 'results/paper2/figures')
@@ -35,7 +35,8 @@ os.makedirs(TABLE_DIR, exist_ok=True)
 
 sys.path.insert(0, os.path.join(BASE, 'code'))
 from mappings import (SDI_COUNTRY_MAPPING, WB_REGIONS, SDI_QUINTILES,
-                      IRAN_PROVINCES, COUNTRY_NAME_MAPPING, SDI_VALUE_MAP_2021)
+                      IRAN_PROVINCES, COUNTRY_NAME_MAPPING, SDI_VALUE_MAP_2021,
+                      NON_COUNTRY_LOCATIONS)
 
 # Note: `SDI_VALUE_MAP_2021` from mappings.py is imported only as a
 # backward-compatibility fallback for ~40 countries whose SDI is not
@@ -63,23 +64,7 @@ print("Loading data...")
 df_qci = pd.read_csv(QCI_PATH)
 
 # Identify countries (exclude all aggregated/regional locations and provinces)
-regions_set = set(WB_REGIONS + SDI_QUINTILES + IRAN_PROVINCES + [
-    'Global', 'Africa', 'America', 'Asia', 'Europe', 'Oceania',
-    'South Asia', 'Central Asia', 'Southeast Asia', 'East Asia',
-    'Eastern Europe', 'Western Europe', 'Central Europe',
-    'Eastern Sub-Saharan Africa', 'Central Sub-Saharan Africa',
-    'Southern Sub-Saharan Africa', 'Western Sub-Saharan Africa',
-    'High-income Asia Pacific', 'High-income North America',
-    'Andean Latin America', 'Central Latin America',
-    'Southern Latin America', 'Tropical Latin America',
-    'Caribbean', 'North Africa and Middle East', 'Australasia',
-    'North America',
-    'World Bank High Income', 'World Bank Low Income',
-    'World Bank Upper Middle Income', 'World Bank Lower Middle Income',
-    'African Region', 'South-East Asia Region', 'Western Pacific Region',
-    'European Region', 'Eastern Mediterranean Region', 'Region of the Americas'])
-
-countries_only = sorted([c for c in df_qci['iso_location_name'].unique() if c not in regions_set])
+countries_only = sorted([c for c in df_qci['iso_location_name'].unique() if c not in NON_COUNTRY_LOCATIONS])
 print(f"  {len(countries_only)} countries identified")
 
 # ── Single-source SDI map (replaces direct use of hardcoded SDI_VALUE_MAP_2021) ─
