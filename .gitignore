@@ -50,3 +50,13 @@ env/
 # --- Working scratch ---
 *.tmp
 *~
+
+# --- Internal scaffolding (NEVER commit; kept locally for project workflow) ---
+TODO_FOR_USER.md
+FIX_PROGRESS.md
+CITATIONS_VERIFIED.md
+
+# --- Internal documentation (thesis drafts, proposal, references) ---
+# All of docs/ is private project material. References subfolder contained
+# publisher PDFs (copyrighted), removed via filter-repo on 2026-05-18.
+docs/
