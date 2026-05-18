@@ -22,8 +22,8 @@ warnings.filterwarnings("ignore")
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(BASE, "results")
-P2 = os.path.join(RESULTS, "paper2/analysis")
-FIG_DIR = os.path.join(RESULTS, "paper2/figures")
+P2 = os.path.join(RESULTS, "equity/analysis")
+FIG_DIR = os.path.join(RESULTS, "equity/figures")
 os.makedirs(FIG_DIR, exist_ok=True)
 
 sys.path.insert(0, os.path.join(BASE, "code"))
@@ -80,7 +80,7 @@ gdr_all = pd.read_csv(os.path.join(P2, "gdr_country_year.csv"))
 conv_data = pd.read_csv(os.path.join(P2, "convergence_data.csv"))
 age_ineq = pd.read_csv(os.path.join(P2, "age_inequality_by_country.csv"))
 
-with open(os.path.join(P2, "paper2_summary_stats.json")) as f:
+with open(os.path.join(P2, "equity_summary_stats.json")) as f:
     summary = json.load(f)
 
 # ────────────────────────────────────────────────────────────────────

@@ -22,7 +22,7 @@ from mappings import SDI_COUNTRY_MAPPING
 # ---------------------------------------------------------------------------
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INPUT_PATH = os.path.join(BASE, "results/shared/aapc_results.csv")
-OUTPUT_PATH = os.path.join(BASE, "results/paper1/tables/table_s3_all_countries.tex")
+OUTPUT_PATH = os.path.join(BASE, "results/global/tables/table_s3_all_countries.tex")
 
 # ---------------------------------------------------------------------------
 # Load and filter data

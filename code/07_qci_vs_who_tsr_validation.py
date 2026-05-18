@@ -15,8 +15,8 @@ across countries. Strong positive correlation supports QCI's external
 construct validity beyond SDI.
 
 Output:
-  results/paper1/tables/table_qci_who_tsr_validation.csv
-  results/paper1/qci_who_tsr_summary.json
+  results/global/tables/table_qci_who_tsr_validation.csv
+  results/global/qci_who_tsr_summary.json
 """
 
 import os
@@ -28,8 +28,8 @@ from scipy import stats
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WHO_PATH = os.path.join(BASE, "data/who_tb_outcomes.csv")
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_qci_who_tsr_validation.csv")
-OUT_JSON = os.path.join(BASE, "results/paper1/qci_who_tsr_summary.json")
+OUT_TABLE = os.path.join(BASE, "results/global/tables/table_qci_who_tsr_validation.csv")
+OUT_JSON = os.path.join(BASE, "results/global/qci_who_tsr_summary.json")
 
 VALIDATION_YEAR = 2019
 

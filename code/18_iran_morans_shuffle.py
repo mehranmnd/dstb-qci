@@ -16,8 +16,8 @@ This generates a supplementary figure (and CSV) that can be referenced
 alongside Figure 12 in Paper 3.
 
 Output:
-  results/paper3/tables/table_morans_shuffle_baseline.csv
-  results/paper3/figures/figure12b_morans_shuffle.{pdf,png}
+  results/iran/tables/table_morans_shuffle_baseline.csv
+  results/iran/figures/figure12b_morans_shuffle.{pdf,png}
 """
 
 import os
@@ -35,9 +35,9 @@ from esda.moran import Moran
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 GEOJSON = os.path.join(BASE, "data/iran_shapefile/iran_provinces.geojson")
-OUT_TABLE = os.path.join(BASE, "results/paper3/tables/table_morans_shuffle_baseline.csv")
-OUT_FIG = os.path.join(BASE, "results/paper3/figures/figure12b_morans_shuffle")
-OUT_JSON = os.path.join(BASE, "results/paper3/analysis_morans_shuffle.json")
+OUT_TABLE = os.path.join(BASE, "results/iran/tables/table_morans_shuffle_baseline.csv")
+OUT_FIG = os.path.join(BASE, "results/iran/figures/figure12b_morans_shuffle")
+OUT_JSON = os.path.join(BASE, "results/iran/analysis_morans_shuffle.json")
 
 IRAN_PROVINCES = [
     "Alborz", "Ardebil", "Bushehr", "Chahar Mahaal and Bakhtiari",

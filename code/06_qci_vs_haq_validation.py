@@ -14,8 +14,8 @@ SDI-only validation is partly circular because GBD's DisMod-MR borrows
 SDI-related covariates.
 
 Output:
-  results/paper1/tables/table_qci_haq_validation.csv  (per-country merge)
-  results/paper1/qci_haq_summary.json                 (correlation stats)
+  results/global/tables/table_qci_haq_validation.csv  (per-country merge)
+  results/global/qci_haq_summary.json                 (correlation stats)
 
 Source: HAQ.CSV is the GBD HAQ Index file (location, year, indicator,
 age type, value with 95% UI). We use indicator_id=100 (HAQ Index)
@@ -31,8 +31,8 @@ from scipy import stats
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HAQ_PATH = os.path.join(BASE, "data/HAQ.CSV")
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_qci_haq_validation.csv")
-OUT_JSON = os.path.join(BASE, "results/paper1/qci_haq_summary.json")
+OUT_TABLE = os.path.join(BASE, "results/global/tables/table_qci_haq_validation.csv")
+OUT_JSON = os.path.join(BASE, "results/global/qci_haq_summary.json")
 
 VALIDATION_YEAR = 2019  # latest year present in HAQ.CSV
 

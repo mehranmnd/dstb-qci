@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Paper 3: Subnational Quality of Care for Drug-Susceptible Tuberculosis in Iran
+Iran subnational analysis: Quality of Care for Drug-Susceptible Tuberculosis
 A Provincial Analysis, 1990-2021
 
 Complete analysis script generating all tables, figures, and statistics.
@@ -29,9 +29,9 @@ QCI_PATH = os.path.join(BASE, 'results/shared/qci.csv')
 QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
 QCI_UNCERTAINTY_PATH = os.path.join(BASE, 'results/shared/qci_uncertainty.csv')
 AAPC_PATH = os.path.join(BASE, 'results/shared/aapc_results.csv')
-OUTPUT_DIR = os.path.join(BASE, 'results/paper3/figures')
-TABLE_DIR = os.path.join(BASE, 'results/paper3/tables')
-STATS_PATH = os.path.join(BASE, 'results/paper3/stats.json')
+OUTPUT_DIR = os.path.join(BASE, 'results/iran/figures')
+TABLE_DIR = os.path.join(BASE, 'results/iran/tables')
+STATS_PATH = os.path.join(BASE, 'results/iran/stats.json')
 SHAPEFILE_DIR = os.path.join(BASE, 'data/iran_shapefile')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -1033,7 +1033,7 @@ with open(STATS_PATH, 'w') as f:
 # PRINT SUMMARY
 # ══════════════════════════════════════════════════════════════════════════════
 print("\n" + "=" * 80)
-print("PAPER 3 ANALYSIS COMPLETE")
+print("IRAN ANALYSIS COMPLETE")
 print("=" * 80)
 print(f"\nTables saved to: {TABLE_DIR}")
 print(f"Figures saved to: {OUTPUT_DIR}")

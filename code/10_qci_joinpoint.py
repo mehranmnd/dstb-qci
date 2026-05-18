@@ -16,8 +16,8 @@ joinpoint(s) plus segment AAPCs. We use `pwlf` for the breakpoint
 search.
 
 Output:
-  results/paper1/tables/table_joinpoint_focus.csv  (per-location segment table)
-  results/paper1/qci_joinpoint_summary.json
+  results/global/tables/table_joinpoint_focus.csv  (per-location segment table)
+  results/global/qci_joinpoint_summary.json
 """
 
 import os
@@ -31,8 +31,8 @@ warnings.filterwarnings("ignore")
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_joinpoint_focus.csv")
-OUT_JSON = os.path.join(BASE, "results/paper1/qci_joinpoint_summary.json")
+OUT_TABLE = os.path.join(BASE, "results/global/tables/table_joinpoint_focus.csv")
+OUT_JSON = os.path.join(BASE, "results/global/qci_joinpoint_summary.json")
 
 # Locations the paper highlights or that show non-monotonic behaviour
 FOCUS_LOCATIONS = [

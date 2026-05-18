@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Paper 1 Figure Generation Script
+Global QCI Figure Generation Script
 =================================
 DS-TB Quality of Care Index (QCI) - Publication-quality figures
 for a Lancet Global Health-style epidemiology paper.
@@ -30,7 +30,7 @@ QCI_PATH = os.path.join(BASE, "shared/qci.csv")
 QCI_COMPLETE_PATH = os.path.join(BASE, "shared/qci_complete_data.csv")
 AAPC_PATH = os.path.join(BASE, "shared/aapc_results.csv")
 UNCERT_PATH = os.path.join(BASE, "shared/qci_uncertainty.csv")
-OUT_DIR = os.path.join(BASE, "paper1/figures")
+OUT_DIR = os.path.join(BASE, "global/figures")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # ======================================================================
@@ -547,7 +547,7 @@ def figure9():
 # ======================================================================
 if __name__ == "__main__":
     print("=" * 60)
-    print("Paper 1 Figure Generation")
+    print("Global QCI Figure Generation")
     print("=" * 60)
 
     figure3()

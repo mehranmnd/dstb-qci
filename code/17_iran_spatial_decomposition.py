@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Paper 3 Enhancement: Spatial Autocorrelation and Decomposition Analysis
+Iran subnational enhancement: Spatial Autocorrelation and Decomposition Analysis
 
 Adds:
   1. Global Moran's I for provincial QCI (1990, 2000, 2010, 2021)
@@ -29,9 +29,9 @@ warnings.filterwarnings('ignore')
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, 'results/shared/qci.csv')
 QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
-OUTPUT_DIR = os.path.join(BASE, 'results/paper3/figures')
-TABLE_DIR = os.path.join(BASE, 'results/paper3/tables')
-STATS_PATH = os.path.join(BASE, 'results/paper3/stats.json')
+OUTPUT_DIR = os.path.join(BASE, 'results/iran/figures')
+TABLE_DIR = os.path.join(BASE, 'results/iran/tables')
+STATS_PATH = os.path.join(BASE, 'results/iran/stats.json')
 GEOJSON_PATH = os.path.join(BASE, 'data/iran_shapefile/iran_provinces.geojson')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)

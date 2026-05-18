@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Paper 2: Gender, Age, and Equity Disparities in DS-TB Care Quality
+Equity analysis: Gender, Age, and Disparities in DS-TB Care Quality
 Complete analysis: Concentration Index, SII, Theil, GDR global,
 age decomposition, multilevel regression, all figures and tables.
 """
@@ -26,9 +26,9 @@ warnings.filterwarnings('ignore')
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, 'results/shared/qci.csv')
 SDI_PATH = os.path.join(BASE, 'data/SDI_1950_2021.csv')
-OUTPUT_DIR = os.path.join(BASE, 'results/paper2/figures')
-TABLE_DIR = os.path.join(BASE, 'results/paper2/tables')
-STATS_PATH = os.path.join(BASE, 'results/paper2/analysis/paper2_stats.json')
+OUTPUT_DIR = os.path.join(BASE, 'results/equity/figures')
+TABLE_DIR = os.path.join(BASE, 'results/equity/tables')
+STATS_PATH = os.path.join(BASE, 'results/equity/analysis/equity_stats.json')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(TABLE_DIR, exist_ok=True)
@@ -625,7 +625,7 @@ print("  Saved figure8")
 
 # ══════════════════════════════════════════════════════════════════════════════
 print("\n" + "=" * 80)
-print("PAPER 2 ANALYSIS COMPLETE")
+print("EQUITY ANALYSIS COMPLETE")
 print("=" * 80)
 print(f"\nTables: {TABLE_DIR}")
 print(f"Figures: {OUTPUT_DIR}")

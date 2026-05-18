@@ -2,7 +2,7 @@
 """
 Phase 2.9: Robust Shapley reference benchmark for Paper 3.
 
-The original paper3_spatial_decomposition.py decomposes each province's
+The original iran_spatial_decomposition.py decomposes each province's
 2021 QCI gap from a SINGLE best-performing province (Chahar Mahaal and
 Bakhtiari, QCI 98.77). Reviewer concern: Chahar Mahaal is a small
 province whose GBD point estimate carries wider uncertainty. We re-run
@@ -11,8 +11,8 @@ component ratios as a more robust reference, and compare provincial
 attribution shares (MIR / YLLtoYLD / DALtoPER) under both references.
 
 Output:
-  results/paper3/tables/table_shapley_top5_reference.csv
-  results/paper3/analysis/shapley_robust_summary.json
+  results/iran/tables/table_shapley_top5_reference.csv
+  results/iran/analysis/shapley_robust_summary.json
 """
 
 import os
@@ -24,8 +24,8 @@ import pandas as pd
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_COMPLETE = os.path.join(BASE, "results/shared/qci_complete_data.csv")
-TABLE_OUT = os.path.join(BASE, "results/paper3/tables/table_shapley_top5_reference.csv")
-JSON_OUT = os.path.join(BASE, "results/paper3/analysis/shapley_robust_summary.json")
+TABLE_OUT = os.path.join(BASE, "results/iran/tables/table_shapley_top5_reference.csv")
+JSON_OUT = os.path.join(BASE, "results/iran/analysis/shapley_robust_summary.json")
 
 IRAN_PROVINCES = [
     "Alborz", "Ardebil", "Bushehr", "Chahar Mahaal and Bakhtiari",

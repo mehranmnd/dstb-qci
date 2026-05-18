@@ -30,9 +30,9 @@ import json
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_COMPLETE_PATH = os.path.join(BASE, 'results/shared/qci_complete_data.csv')
-OUTPUT_DIR = os.path.join(BASE, 'results/paper3/figures')
-TABLE_DIR = os.path.join(BASE, 'results/paper3/tables')
-STATS_PATH = os.path.join(BASE, 'results/paper3/pca_sensitivity_results.json')
+OUTPUT_DIR = os.path.join(BASE, 'results/iran/figures')
+TABLE_DIR = os.path.join(BASE, 'results/iran/tables')
+STATS_PATH = os.path.join(BASE, 'results/iran/pca_sensitivity_results.json')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(TABLE_DIR, exist_ok=True)

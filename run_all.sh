@@ -74,23 +74,23 @@ fi
 
 # -- QCI sensitivity analyses --------------------------------------------
 run 08_qci_logit_sensitivity.py
-run 09_paper1_smallpop_sensitivity.py
+run 09_global_smallpop_sensitivity.py
 run 10_qci_joinpoint.py
 
-# -- Paper 2: equity & multilevel ----------------------------------------
-run 11_paper2_analysis.py
-run 12_paper2_pop_weighted_ci.py
-run 13_paper2_halflife_sensitivity.py
+# -- Equity: inequality & multilevel -------------------------------------
+run 11_equity_analysis.py
+run 12_equity_pop_weighted_ci.py
+run 13_equity_halflife_sensitivity.py
 
-# -- Paper 1 & Paper 2 figures -------------------------------------------
-run 14_paper1_figures.py
-run 15_paper2_figures.py
+# -- Global & equity figures ---------------------------------------------
+run 14_global_figures.py
+run 15_equity_figures.py
 
-# -- Paper 3: Iran subnational -------------------------------------------
-run 16_paper3_analysis.py
-run 17_paper3_spatial_decomposition.py
-run 18_paper3_morans_shuffle.py
-run 19_paper3_shapley_robust.py
+# -- Iran subnational ----------------------------------------------------
+run 16_iran_analysis.py
+run 17_iran_spatial_decomposition.py
+run 18_iran_morans_shuffle.py
+run 19_iran_shapley_robust.py
 
 # -- Tables --------------------------------------------------------------
 run 20_generate_tables.py
@@ -101,5 +101,5 @@ echo "================================================================"
 echo "  Pipeline complete: $(date -Iseconds)"
 echo "  Outputs in:"
 echo "    results/shared/"
-echo "    results/paper1/, results/paper2/, results/paper3/"
+echo "    results/global/, results/equity/, results/iran/"
 echo "================================================================"

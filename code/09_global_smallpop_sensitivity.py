@@ -9,9 +9,9 @@ ranking after excluding countries with population < 500,000 in 2021,
 to check how the headline rankings change.
 
 Output:
-  results/paper1/tables/table_smallpop_excluded_top20.csv
-  results/paper1/tables/table_smallpop_excluded_bottom20.csv
-  results/paper1/qci_smallpop_summary.json
+  results/global/tables/table_smallpop_excluded_top20.csv
+  results/global/tables/table_smallpop_excluded_bottom20.csv
+  results/global/qci_smallpop_summary.json
 """
 
 import os
@@ -21,9 +21,9 @@ import pandas as pd
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 POP_PATH = os.path.join(BASE, "results/shared/population_2021.csv")
-TOP_OUT = os.path.join(BASE, "results/paper1/tables/table_smallpop_excluded_top20.csv")
-BOT_OUT = os.path.join(BASE, "results/paper1/tables/table_smallpop_excluded_bottom20.csv")
-JSON_OUT = os.path.join(BASE, "results/paper1/qci_smallpop_summary.json")
+TOP_OUT = os.path.join(BASE, "results/global/tables/table_smallpop_excluded_top20.csv")
+BOT_OUT = os.path.join(BASE, "results/global/tables/table_smallpop_excluded_bottom20.csv")
+JSON_OUT = os.path.join(BASE, "results/global/qci_smallpop_summary.json")
 
 SMALL_POP_THRESHOLD = 500_000
 

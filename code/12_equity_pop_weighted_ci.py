@@ -2,7 +2,7 @@
 """
 Paper 2 sensitivity: population-weighted Concentration Index (CI).
 
-Replicates the equal-country CI computed by `paper2_analysis.py` but
+Replicates the equal-country CI computed by `equity_analysis.py` but
 weights each country by its 2021 population (extracted from the IHME
 data file via `extract_population.py`). This sensitivity addresses the
 reviewer concern that equal-country weighting treats Tuvalu and India
@@ -18,9 +18,9 @@ when countries are sorted by SDI ascending. mean_w(h) and cov_w are
 weighted by population.
 
 This script also reports unweighted CI alongside for direct comparison.
-The output table is appended to results/paper2/tables/.
+The output table is appended to results/equity/tables/.
 
-Output: results/paper2/tables/table_ci_population_weighted.csv
+Output: results/equity/tables/table_ci_population_weighted.csv
 """
 
 import os
@@ -33,13 +33,13 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
 QCI_COMPLETE_PATH = os.path.join(BASE, "results/shared/qci_complete_data.csv")
 POP_PATH = os.path.join(BASE, "results/shared/population_2021.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper2/tables/table_ci_population_weighted.csv")
-OUT_JSON = os.path.join(BASE, "results/paper2/analysis/paper2_pop_weighted_ci.json")
+OUT_TABLE = os.path.join(BASE, "results/equity/tables/table_ci_population_weighted.csv")
+OUT_JSON = os.path.join(BASE, "results/equity/analysis/equity_pop_weighted_ci.json")
 
 sys.path.insert(0, os.path.join(BASE, "code"))
 from mappings import SDI_VALUE_MAP_2021, WB_REGIONS, SDI_QUINTILES, IRAN_PROVINCES
 
-# ── Country list (mirrors paper2_analysis.py) ─────────────────────────────────
+# ── Country list (mirrors equity_analysis.py) ─────────────────────────────────
 df_qci_full = pd.read_csv(QCI_PATH)
 regions_set = set(WB_REGIONS + SDI_QUINTILES + IRAN_PROVINCES + [
     "Global", "Africa", "America", "Asia", "Europe", "Oceania",
@@ -60,7 +60,7 @@ countries_only = sorted(
     [c for c in df_qci_full["iso_location_name"].unique() if c not in regions_set])
 print(f"Countries: {len(countries_only)}")
 
-# ── SDI map (CSV + dict fallback, matches paper2_analysis.py logic) ──────────
+# ── SDI map (CSV + dict fallback, matches equity_analysis.py logic) ──────────
 _sdi_src = pd.read_csv(QCI_COMPLETE_PATH,
                         usecols=["iso_location_name", "year", "sex_name",
                                  "age_name", "sdi_value_2021"])
@@ -119,7 +119,7 @@ def weighted_ci(h, r_var, w):
 
 
 def unweighted_ci(h, r_var):
-    """Equal-country CI for comparison (matches paper2_analysis.py)."""
+    """Equal-country CI for comparison (matches equity_analysis.py)."""
     h = np.asarray(h, dtype=float)
     r_var = np.asarray(r_var, dtype=float)
     n = len(h)

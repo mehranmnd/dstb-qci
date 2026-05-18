@@ -21,8 +21,8 @@ Half-life formula:
   half-life = log(2) / lambda
 
 Output:
-  results/paper2/tables/table_halflife_sensitivity.csv
-  results/paper2/analysis/paper2_halflife_summary.json
+  results/equity/tables/table_halflife_sensitivity.csv
+  results/equity/analysis/equity_halflife_summary.json
 """
 
 import os
@@ -34,8 +34,8 @@ from scipy import stats
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper2/tables/table_halflife_sensitivity.csv")
-OUT_JSON = os.path.join(BASE, "results/paper2/analysis/paper2_halflife_summary.json")
+OUT_TABLE = os.path.join(BASE, "results/equity/tables/table_halflife_sensitivity.csv")
+OUT_JSON = os.path.join(BASE, "results/equity/analysis/equity_halflife_summary.json")
 
 sys.path.insert(0, os.path.join(BASE, "code"))
 from mappings import WB_REGIONS, SDI_QUINTILES, IRAN_PROVINCES

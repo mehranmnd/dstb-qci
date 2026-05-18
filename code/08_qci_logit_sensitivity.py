@@ -20,8 +20,8 @@ just a ceiling artefact. We report the Spearman correlation between
 the two AAPC vectors as a robustness indicator.
 
 Output:
-  results/paper1/tables/table_logit_aapc_sensitivity.csv
-  results/paper1/qci_logit_summary.json
+  results/global/tables/table_logit_aapc_sensitivity.csv
+  results/global/qci_logit_summary.json
 """
 
 import os
@@ -32,8 +32,8 @@ from scipy import stats
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QCI_PATH = os.path.join(BASE, "results/shared/qci.csv")
-OUT_TABLE = os.path.join(BASE, "results/paper1/tables/table_logit_aapc_sensitivity.csv")
-OUT_JSON = os.path.join(BASE, "results/paper1/qci_logit_summary.json")
+OUT_TABLE = os.path.join(BASE, "results/global/tables/table_logit_aapc_sensitivity.csv")
+OUT_JSON = os.path.join(BASE, "results/global/qci_logit_summary.json")
 
 EPS = 1e-3  # to avoid logit(1) = +inf when QCI hits 100 exactly
 
