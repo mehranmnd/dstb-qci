@@ -60,3 +60,11 @@ CITATIONS_VERIFIED.md
 # All of docs/ is private project material. References subfolder contained
 # publisher PDFs (copyrighted), removed via filter-repo on 2026-05-18.
 docs/
+
+# --- Manuscripts (unsubmitted; kept locally for journal submission workflow) ---
+# Removed from public repo on 2026-05-18 because they are pre-submission
+# drafts. Including them in the Zenodo deposit would constitute a preprint,
+# which some target journals (e.g. Archives of Iranian Medicine) may flag
+# as prior publication. Local copies backed up under
+# ~/Desktop/thesis-internal-backup-20260518-053008/papers/
+papers/
